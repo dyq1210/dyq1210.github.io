@@ -1,3 +1,8 @@
-@media screen and (min-width:1200px){
-    #page{ width: 1100px; }#content,.div1{width: 730px;}#secondary{width:310px}
-}
+video#bgvid { 
+position: fixed; right: 0; bottom: 0; 
+min-width: 100%; min-height: 100%; 
+width: auto; 
+height: auto; 
+z-index: -100; 
+background: url(normalbg.jpg) no-repeat; 
+background-size: cover;}
