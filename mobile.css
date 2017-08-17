@@ -1,60 +1,54 @@
-/*css reset */
-body,p,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,form,input,iframe,nav {
-    margin: 0;
-    padding: 0;
-}
-html,body {
-    width: 100%;
-    height: 100%;
-}
-body {
-    font: 14px Microsoft YaHei;
-    -webkit-text-size-adjust:100%;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-    position: relative;
-    background: #000;
-}
-a { 
-    text-decoration: none;
-}
-ol,ul {
-    list-style: none;
-}
-img { 
-    border: 0;
-}
-.wrapper .btn_w {
-    position: absolute;
-    margin: auto;
-    top: 50%;
-    left: 50%;
-    margin-top: -22px;
-    margin-left: -155px;
-    z-index: 10;
+body,figure,figcaption,h2,p,img{margin:0;padding:0;}
+figure{position:relative;width:33.33%;max-height:200px;float:left}
+figcaption {position:absolute;top:10px;left:10px;color:#fff;font-family:"微软雅黑"}
+img{max-width:100%;max-height:100%;}
+@media screen and (min-width:1001px){
+  figure{width:33.33%}
 }
 
-.wrapper .btn_w .btn {
-    background: transparent url(http://ww3.sinaimg.cn/large/bea70753gw1f2g4snrc2cj203m02e3yb.jpg) no-repeat 0 0;
-    display: inline-block;
-    width: 130px;
-    height: 43px;
-    margin: 0 10px;
-    font: 18px/43px Microsoft YaHei;
-    color: #069;
-    text-align: center;
-    transition: .5s;
+@media screen and (min-width:600px) and (max-width:1000px){
+  figure{width:50%}
 }
 
-.wrapper .btn_w .btn:hover {
-    background-position: 0 -43px;
-    color: #27b;
-    box-shadow: 0 0 6px #27b;
+@media screen and (max-width:600px){
+  figure{width:100%}
 }
-#canvas {
-    width: 100%;
-    height: 100%;
-    display: block;
-    opacity: .8;
-}
+figure img{opacity:0.8;transition:all 0.3s;}
+figure figcaption p{transition:all 0.3s;}
+figure figcaption div{transition:all 0.5s;}
+
+.test1{background-color:#eee;hsla(10%,10%,0.5,60%);}
+.test1 figcaption p{background:#fff;color:#333;margin:3px;text-align:center;transform:translate(-130px,0px);}
+.test1 figcaption{padding:20px}
+.test1:hover figcaption p{transform:translate(0,0);}
+.test1 figcaption p:nth-of-type(1){transition-delay:0.2s}
+.test1 figcaption p:nth-of-type(2){transition-delay:0.3s}
+.test1 figcaption p:nth-of-type(3){transition-delay:0.4s}
+.test1:hover img{transform:translate(-5px,0);opacity:0.5;}
+
+.test2{background:#ccc;}
+.test2 figcaption{width:100%;height:100%;}
+.test2 figcaption h2{margin:10% 0 0 10%;}
+.test2 figcaption p{margin-left:10%;transform:translation(50px,0);opacity:0;}
+.test2 figcaption div{border:2px solid #fff;width:80%;height:80%;position:absoulte;top:10%;left:20%;transform:translate(0,-520px) rotate(0deg);opacity:0;}
+.test2:hover figcaption div {transform:translate(40px,-140px) rotate(360deg);opacity:1;}
+.test2:hover img{opacity:0.5;}
+.test2:hover figcaption p{transform:translate(0px,0px);opacity:1;}
+
+
+.test3{background:#ccc}
+.test3 figcaption{top:30%;left:15%;}
+.test3:hover img{opacity:0.5;}
+.test3 figcaption p{transform:skew(90deg);}
+.test3 figcaption p:nth-of-type(1){transition-delay:0.2s;}
+.test3 figcaption p:nth-of-type(2){transition-delay:0.3s;}
+.test3 figcaption p:nth-of-type(3){transition-delay:0.4s;}
+.test3:hover figcaption p{transform:skew(0deg);}
+
+.test4{background:#eee;}
+.test4 figcaption h2{margin-top:10%;margin-left:15%;}
+.test4 figcaption p{margin-left:15%;}
+.test4 figcaption{width:100%;height:100%;}
+.test4 figcaption div{border:2px solid #fff;width:80%;height:80%;position:absoulte;top:10%;left:20%;transform:scale(1.5,1.5);opacity:0;}
+.test4:hover figcaption div{transform:scale(1,1);opacity:1;margin-top:-120px;margin-left:50px;}
+.test4:hover img{transform:scale(1.1,1.1);opacity:0.5;}
