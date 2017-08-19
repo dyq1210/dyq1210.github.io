@@ -148,7 +148,7 @@ h1 {
   width: 120vmin;
   display: flex;
   justify-content: center;
-  position: relative;
+  position: absolute;
 }
 
 h1::before {
