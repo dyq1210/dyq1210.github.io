@@ -144,11 +144,12 @@ body::after {
 
 h1 {
   margin: auto;
-  height: 12vmin;
-  width: 120vmin;
+  height: 50%;
+  width: 50%;
   display: flex;
   justify-content: center;
   position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
 }
 
 h1::before {
