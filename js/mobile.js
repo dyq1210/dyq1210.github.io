@@ -1,201 +1,91 @@
-/*=============================================================================*/	
-/* Smooth Trail
-/* https://codepen.io/jackrugile/pen/ohFbx
-/*=============================================================================*/
-var smoothTrail = function(c, cw, ch){
-  
-/*=============================================================================*/	
-/* Initialize
-/*=============================================================================*/
-  this.init = function(){
-    this.loop();
-  };		
-  
-  /*=============================================================================*/	
-  /* Variables
-/*=============================================================================*/
-  var _this = this;
-  this.c = c;
-  this.ctx = c.getContext('2d');
-  this.cw = cw;
-  this.ch = ch;
-  this.mx = 0;
-  this.my = 0;
-  
-  //trail
-  this.trail = [];
-  this.maxTrail = 200;
-  this.mouseDown = false;
-  
-  this.ctx.lineWidth = .1;
-  this.ctx.lineJoin = 'round';
-  
-  this.radius = 1;
-  this.speed = 0.4;
-  this.angle = 0;
-  this.arcx = 0;
-  this.arcy = 0;
-  this.growRadius = true;
-  this.seconds = 0;
-  this.milliseconds = 0;
-  
-  /*=============================================================================*/	
-  /* Utility Functions
-/*=============================================================================*/				
-  this.rand = function(rMi, rMa){return ~~((Math.random()*(rMa-rMi+1))+rMi);};
-  this.hitTest = function(x1, y1, w1, h1, x2, y2, w2, h2){return !(x1 + w1 < x2 || x2 + w2 < x1 || y1 + h1 < y2 || y2 + h2 < y1);};
-  
-  /*=============================================================================*/	
-  /* Create Point
-/*=============================================================================*/
-  this.createPoint = function(x, y){					
-    this.trail.push({
-      x: x,
-      y: y						
-    });
-  };
-  
-  /*=============================================================================*/	
-  /* Update Trail
-/*=============================================================================*/
-  this.updateTrail = function(){					
-    
-    if(this.trail.length < this.maxTrail){
-      this.createPoint(this.arcx, this.arcy);
-    }					
-    
-    if(this.trail.length >= this.maxTrail){
-      this.trail.splice(0, 1);
-    }					
-  };
-  
-  /*=============================================================================*/	
-  /* Update Arc
-/*=============================================================================*/
-  this.updateArc = function(){
-    this.arcx = (this.cw/2) + Math.sin(this.angle) * this.radius;
-    this.arcy = (this.ch/2) + Math.cos(this.angle) * this.radius;					
-    var d = new Date();
-    this.seconds = d.getSeconds();
-    this.milliseconds = d.getMilliseconds();
-    this.angle += this.speed*(this.seconds+1+(this.milliseconds/1000));
-    
-    if(this.radius <= 1){
-      this.growRadius = true;
-    } 
-    if(this.radius >= 200){
-      this.growRadius = false;
+var treeCanvas = document.getElementById("treeAndFlower"),
+        tCtx = treeCanvas.getContext('2d'),
+        flowerCanvas = document.getElementById("animateFlower"),
+        fCtx = flowerCanvas.getContext("2d"),
+        cw = window.innerWidth,
+        ch = window.innerHeight;
+    treeCanvas.width = flowerCanvas.width = cw;
+    treeCanvas.height = flowerCanvas.height = ch;
+    var flowerList = [],
+        rootTop = ch - 150,
+        flowerColor = "rgba(255,192,203,.3)", //花色
+        flowerColorDeep = "rgba(241,158,194,.5)", //花色深
+        treeColor2 = "rgba(255,192,203,.5)", //树枝颜色
+        treeColor = "#FFF", //树干颜色
+        fallList = [], //飘落樱花列表
+        g = 0.01, //重力加速度
+        gWind = 0.005, //风力加速度
+        limitSpeedY = 1, //Y速度上限
+        limitSpeedX = 1; //X速度上限
+    fCtx.shadowColor= "#FFF" ;
+    fCtx.shadowBlur = 10 ;
+    function drawTree(x, y, deg, step) {
+      var addDeg = step % 2 === 0 ? 0.1 : -0.1,
+          x1 = x + Math.cos(deg + addDeg) * (step + 4) * 0.8,
+          y1 = y + Math.sin(deg + addDeg) * (step - 1) * 0.8;
+      tCtx.beginPath();
+      tCtx.lineWidth = step / 3;
+      tCtx.moveTo(x, y);
+      tCtx.lineTo(x1, y1);
+      tCtx.strokeStyle = step > 5 ? treeColor : treeColor2;
+      tCtx.stroke();
+      if (step > 20) {
+        tCtx.fillStyle = treeColor;
+        tCtx.arc(x, y, step / 6, 0, 2 * Math.PI);
+        tCtx.fill();
+      }
+      if (step < 3 || (step < 23 && Math.random() > 0.1)) {
+        var color = [flowerColorDeep, flowerColor][Math.round(Math.random() + 0.2)],
+            r = 2 + Math.random() * 2;
+        tCtx.fillStyle = color;
+        tCtx.arc(x1 + Math.random() * 3, y1 + Math.random() * 3, r, 0, Math.PI);
+        tCtx.fill();
+        flowerList.push({
+          x: x,
+          y: y,
+          sx: Math.random() - 0.5,
+          sy: 0,
+          color: color,
+          r: r,
+          deg: deg
+        });
+      }
+      step --;
+      if (step > 0) {
+        drawTree(x1, y1, deg, step);
+        if (step % 3 === 0) {
+          drawTree(x1, y1, deg + 0.2 + Math.random() * 0.3, Math.round(step/1.13));
+        }
+        if (step % 3 === 1) {
+          drawTree(x1, y1, deg - 0.2 - Math.random() * 0.3, Math.round(step/1.13));
+        }
+      }
     }
-    
-    if(this.growRadius){
-      this.radius += 1;	
-    } else {
-      this.radius -= 1;	
+    function update() {
+      if (Math.random() > 0.3) {
+        fallList.push(flowerList[Math.floor(Math.random() * flowerList.length)]);
+      }
+      fCtx.clearRect(0, 0, cw, ch);
+      for (var i=0; i<fallList.length; i++) {
+        var fall = fallList[i];
+        if (fall.sy < limitSpeedY) {
+          fall.sy += g;
+        }
+        fall.sx += gWind;
+        fall.x += fall.sx;
+        fall.y += fall.sy;
+        fall.deg += fall.sx * 0.05;
+        if (fall.y > rootTop) {
+          fallList.splice(i, 1);
+          i --;
+          continue;
+        }
+        fCtx.beginPath();
+        fCtx.fillStyle = fall.color;
+        fCtx.arc(fall.x, fall.y, fall.r, fall.deg, fall.deg + 1.3 * Math.PI);
+        fCtx.fill();
+      }
+      requestAnimationFrame(update);
     }
-  };
-  
-  /*=============================================================================*/	
-  /* Render Trail
-/*=============================================================================*/
-  this.renderTrail = function(){
-    var i = this.trail.length;					
-    
-    this.ctx.beginPath();
-    while(i--){
-      var point = this.trail[i];
-      var nextPoint = (i == this.trail.length) ? this.trail[i+1] : this.trail[i];
-      
-      var c = (point.x + nextPoint.x) / 2;
-      var d = (point.y + nextPoint.y) / 2;						
-      this.ctx.quadraticCurveTo(Math.round(this.arcx), Math.round(this.arcy), c, d);
-      
-      
-      
-    };
-    this.ctx.strokeStyle = 'hsla('+this.rand(170,300)+', 100%, '+this.rand(50, 75)+'%, 1)';	
-    this.ctx.stroke();
-    this.ctx.closePath();
-    
-  };			
- 
-  
-  /*=============================================================================*/	
-  /* Clear Canvas
-/*=============================================================================*/
-  this.clearCanvas = function(){
-    //this.ctx.globalCompositeOperation = 'source-over';
-    //this.ctx.clearRect(0,0,this.cw,this.ch);
-    
-    this.ctx.globalCompositeOperation = 'destination-out';
-    this.ctx.fillStyle = 'rgba(0,0,0,.1)';
-    this.ctx.fillRect(0,0,this.cw,this.ch);					
-    this.ctx.globalCompositeOperation = 'lighter';
-  };
-  
-  /*=============================================================================*/	
-  /* Animation Loop
-/*=============================================================================*/
-  this.loop = function(){
-    var loopIt = function(){
-      requestAnimationFrame(loopIt, _this.c);
-      _this.clearCanvas();
-      _this.updateArc();
-      _this.updateTrail();
-      _this.renderTrail();							
-    };
-    loopIt();					
-  };
-  
-};
-
-/*=============================================================================*/	
-/* Check Canvas Support
-/*=============================================================================*/
-var isCanvasSupported = function(){
-  var elem = document.createElement('canvas');
-  return !!(elem.getContext && elem.getContext('2d'));
-};
-
-/*=============================================================================*/	
-/* Setup requestAnimationFrame
-/*=============================================================================*/
-var setupRAF = function(){
-  var lastTime = 0;
-  var vendors = ['ms', 'moz', 'webkit', 'o'];
-  for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x){
-    window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
-    window.cancelAnimationFrame = window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
-  };
-  
-  if(!window.requestAnimationFrame){
-    window.requestAnimationFrame = function(callback, element){
-      var currTime = new Date().getTime();
-      var timeToCall = Math.max(0, 16 - (currTime - lastTime));
-      var id = window.setTimeout(function() { callback(currTime + timeToCall); }, timeToCall);
-      lastTime = currTime + timeToCall;
-      return id;
-    };
-  };
-  
-  if (!window.cancelAnimationFrame){
-    window.cancelAnimationFrame = function(id){
-      clearTimeout(id);
-    };
-  };
-};			
-
-/*=============================================================================*/	
-/* Define Canvas and Initialize
-/*=============================================================================*/
-  if(isCanvasSupported){
-    var c = document.createElement('canvas');
-    c.width = 400;
-    c.height = 400;			
-    var cw = c.width;
-    var ch = c.height;	
-    document.body.appendChild(c);	
-    var cl = new smoothTrail(c, cw, ch);				
-    
-    setupRAF();
-    cl.init();
-  }
+    drawTree(cw / 2, rootTop, -Math.PI/2, 30);//执行
+    update();
