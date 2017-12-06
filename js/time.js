@@ -1,5 +1,5 @@
      <script>
-    let countDown = new Date('Dec 10, 2017 00:00:00').getTime(),
+    let countDown = new Date('Dec 14, 2017 00:00:00').getTime(),
     x = setInterval(function () {
 
       let now = new Date().getTime(),
