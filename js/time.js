@@ -9,5 +9,5 @@
         document.getElementById('hours').innerHTML = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
         document.getElementById('minutes').innerHTML = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
         document.getElementById('seconds').innerHTML = Math.floor((distance % (1000 * 60)) / 1000)
-     if (distance < 0)  location.href='http://dyq1210.github.io/Happy.html';  
+     if (distance < 0)  location.href='http://dyq1210.github.io/happy.html';  
     </script>
