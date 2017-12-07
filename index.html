@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 
@@ -9,16 +10,17 @@
      <link rel="icon" href="http://osyl2krhx.bkt.clouddn.com/Saber.jpg" type="image/x-icon"/>
      <link rel="stylesheet" type="text/css" href="index.css"
            <link rel="stylesheet" type="text/css" href="pace-theme-flash.css"
-                  
-
+     
+     <script src="js/time.js"></script>
+           
            
            <script type="text/javascript" src="index.js">
         </script>
      
       <script type="text/javascript" src="pace.js">
         </script>
-      <script src="js/way.js">
-     </script>
+     
+     
      
      <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
      
@@ -75,26 +77,26 @@ function GetRequest() {
   </ul>
 </div>
      
-      <script>
+     
+     
+     
+     
+     
+     <script>
     let countDown = new Date('Dec 10, 2017 00:00:00').getTime(),
     x = setInterval(function () {
-
       let now = new Date().getTime(),
           distance = countDown - now;
-
       document.getElementById('days').innerHTML = Math.floor(distance / (1000 * 60 * 60 * 24)),
         document.getElementById('hours').innerHTML = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
         document.getElementById('minutes').innerHTML = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
         document.getElementById('seconds').innerHTML = Math.floor((distance % (1000 * 60)) / 1000)
-     if (distance < 0)  location.href='http://dyq1210.github.io/happy.html';  
-    </script>
+     if (distance < 0)  location.href='happy.html';  
+    
      
-     
-     
-     
-     
-     
-
+    
+    
+</script>
      
      <script language="javascript">  
     $(document).ready(function(){  
@@ -122,5 +124,3 @@ function GetRequest() {
     }  
      
 </script>
-
-     
