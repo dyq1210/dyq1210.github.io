@@ -32,7 +32,7 @@
            
            
 
-<video  id="myvideo" src="#"   autoplay="autoplay"   width=100% height=100% >
+<video muted id="myvideo" src="#"   autoplay="autoplay"   width=100% height=100% >
      
     </video>
      <div id="address"></div>  
@@ -79,7 +79,9 @@
    function play() {  
         video.src = vList[curr];  
         video.load();  
-        video.play();  
+        //video.play();  
+         document.getElementById('myvideo').muted = false;
+         document.getElementById('myvideo').play();
         document.getElementById("address").innerHTML 
         curr++;  
         if(curr >= vLen){  
