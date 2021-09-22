@@ -6,18 +6,17 @@
      
   <style>
     img {
-        width: 400px;height: 300px;
-        display: none;
+        width: 50%;height: 50%;
+        display: block;
     }
 </style>
-    <input id = "btn" type="button" value="clickme">
+    
     <img src="jingyin.jpg" id="pic"> 
     
     <script>
-    var btn = document.getElementById("btn");
     var pic = document.getElementById("pic");
-    btn.onclick= function (){
-        pic.style.display = "block";
+    pic.onclick= function (){
+        pic.style.display = "none";
     }
     </script>
      
