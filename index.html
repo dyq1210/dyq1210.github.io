@@ -68,7 +68,7 @@
           
                 
     document.body.addEventListener("mousemove", function () {
-    document.getElementById('myvideo').muted = false;
+    
     play();
          
 })
@@ -79,6 +79,7 @@
     play();  
 });  
    function play() {  
+        document.getElementById('myvideo').muted = false;
         video.src = vList[curr];  
         video.load();  
         video.play();  
