@@ -66,9 +66,11 @@
     var curr = 0;  
     var video = document.getElementById("myvideo");
           
-          
+                
     document.body.addEventListener("mousemove", function () {
+    document.getElementById('myvideo').muted = false;
     play();
+         
 })
           
     video.addEventListener("ended", function(){  
@@ -79,9 +81,7 @@
    function play() {  
         video.src = vList[curr];  
         video.load();  
-        //video.play();  
-         document.getElementById('myvideo').muted = false;
-         document.getElementById('myvideo').play();
+        video.play();  
         document.getElementById("address").innerHTML 
         curr++;  
         if(curr >= vLen){  
