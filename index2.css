@@ -1,0 +1,47 @@
+ video#myvideo {
+position: fixed; left: 51; bottom: 0; 
+min-width: 100%; min-height: 100%; 
+width: auto; 
+height: auto; 
+z-index: -100; 
+background-size: cover;}
+
+
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+
+}
+
+.container {
+  color: #333;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2em;
+    font-weight: normal;
+}
+
+li {
+  display: inline-block;
+  font-size: 1.5em;
+  list-style-type: none;
+  padding: 1em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+span {
+  display: block;
+  font-size: 4.5rem;
+}
+
+
+
