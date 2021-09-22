@@ -64,11 +64,8 @@
      var vList = new Array("https://dyq1210.oss-cn-shenzhen.aliyuncs.com/2_%E9%AB%98%E6%B8%85_720P_TV%E5%8A%A8%E7%94%BB_Fate_Zero_ED_MEMORIA_.mp4", "https://dyq1210.oss-cn-shenzhen.aliyuncs.com/4_%E9%AB%98%E6%B8%85_720P_02_TV%E5%8B%95%E7%94%BB_Fate_Zero_%E7%AC%AC2%E6%9C%9F_NCED_%E7%A9%BA_%E9%AB%98_%E9%A2%A8_%E6%AD%8C__.mp4"); // 初始化播放列表  
     var vLen = vList.length;  
     var curr = 0;  
-    var video = document.getElementById("myvideo");
-          
-                
+    var video = document.getElementById("myvideo");            
     document.body.addEventListener("mousemove", function () {
-    
     play();
          
 })
@@ -79,7 +76,6 @@
     play();  
 });  
    function play() {  
-        document.getElementById('myvideo').muted = false;
         video.src = vList[curr];  
         video.load();  
         video.play();  
