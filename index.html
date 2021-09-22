@@ -6,13 +6,13 @@
      
   <style>
     img {
-         opacity:0.4;
-        width: 50%;height: 50%;
+         //opacity:0.4;
+        width=50%;height=50%;
         display: block;
     }
 </style>
     
-    <img src="jingyin.jpg" id="pic"> 
+    <img src="jingyin2.jpg" id="pic"> 
     
     <script>
     var pic = document.getElementById("pic");
@@ -91,7 +91,7 @@
   
         video.src = vList[curr];  
         video.load();  
-     document.body.addEventListener("mousedown", function () {
+      pic.onclick= function (){
        
      document.getElementById('myvideo').play();
      document.getElementById('myvideo').muted = false;
