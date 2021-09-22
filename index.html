@@ -1,8 +1,25 @@
-//2021.9.21 今天我梦到你了,不由自主的把丢失的视频补了回来
+//2021.9.21 今天我梦到你了,情不自禁的把丢失的视频补了回来
 <!DOCTYPE html>
 <html>
 
 <head>
+     
+  <style>
+    img {
+        width: 400px;height: 300px;
+        display: none;
+    }
+</style>
+    <input id = "btn" type="button" value="clickme">
+    <img src="jingyin.jpg" id="pic"> 
+    
+    <script>
+    var btn = document.getElementById("btn");
+    var pic = document.getElementById("pic");
+    btn.onclick= function (){
+        pic.style.display = "block";
+    }
+    </script>
      
      
      
@@ -75,6 +92,7 @@
         video.src = vList[curr];  
         video.load();  
      document.body.addEventListener("mousedown", function () {
+       
      document.getElementById('myvideo').play();
      document.getElementById('myvideo').muted = false;
                                                               }
